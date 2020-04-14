@@ -1,0 +1,60 @@
+main {
+  width: 33%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.icon-win {
+  color: green;
+}
+
+.icon-lost {
+  color: red;
+}
+
+.icon-win::before {
+  content: "✓";
+}
+
+.icon-lost::before {
+  content: "✘";
+}
+
+.icon-tie::before {
+  content: "=";
+}
+
+.buttons-container {
+  display: flex;
+}
+
+.change-mode-button {
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.ranking {
+  font-weight: bold;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.ranking li {
+  margin-top: 10px;
+}
+
+.player-name {
+  font-weight: normal;
+  text-align: center;
+}
+
+.amount-wins {
+  margin-bottom: 5px;
+}
