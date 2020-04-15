@@ -100,25 +100,14 @@
         </tr>
       </thead>
       <tbody>
-      {{#ifCond mode 'local'}}
-        {{#each local.history}}
-          <tr id="item-{{@index}}">
-            <td class="icon-{{result}}">
-            </td>
-            <td>{{playerHandLabel}}</td>
-            <td>{{opponentHandLabel}}</td>
-          </tr>
-        {{/each}}
-      {{else}}
-        {{#each server.history}}
-          <tr id="item-{{@index}}">
-            <td class="icon-{{result}}">
-            </td>
-            <td>{{playerHandLabel}}</td>
-            <td>{{opponentHandLabel}}</td>
-          </tr>
-        {{/each}}
-      {{/ifCond}}
+      {{#each history}}
+        <tr id="item-{{@index}}">
+          <td class="icon-{{result}}">
+          </td>
+          <td>{{playerHandLabel}}</td>
+          <td>{{opponentHandLabel}}</td>
+        </tr>
+      {{/each}}
       </tbody>
     </table>
 </script>

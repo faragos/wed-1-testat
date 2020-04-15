@@ -18,14 +18,12 @@ window.rockPaperScissors.controller = (function () {
 
   function getDataForHandlebars () {
     return {
-      server,
-      local,
-      view,
+      history: getCurrentMode().history,
       mode,
       playerName,
       currentGame,
       symbolDefinitions: rockPaperScissors.symbolDefinitions,
-      time: rockPaperScissors.countdown.getCurrentTime
+      time: rockPaperScissors.countdown.getCurrentTime()
     }
   }
 
