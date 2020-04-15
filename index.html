@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/ranking.css">
+    <link rel="stylesheet" href="css/game.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"
             integrity="sha256-qlku5J3WO/ehJpgXYoJWC2px3+bZquKChi4oIWrAKoI=" crossorigin="anonymous"></script>
     <title>Hauptseite</title>
@@ -21,9 +23,9 @@
 
 <script id="home-template" type="text/x-handlebars-template">
     {{#ifCond mode 'local'}}
-      <button id="server-button" class="change-mode-button">Wechsle zu Server</button>
+      <button id="server-button" class="change-mode-button big-button">Wechsle zu Server</button>
     {{else}}
-      <button id="local-button" class="change-mode-button">Wechsle zu Lokal</button>
+      <button id="local-button" class="change-mode-button big-button">Wechsle zu Lokal</button>
     {{/ifCond}}
     <h1>Rangliste</h1>
     <div id="player-list-container">
@@ -42,7 +44,7 @@
         <label for="name">Name</label>
         <input type="text" id="name" name="name">
       </div>
-      <button id="start-game" type="submit">
+      <button id="start-game" type="submit" class="big-button start-game-button">
         Spiel Starten
       </button>
     </form>
@@ -51,24 +53,29 @@
     <strong>Hallo {{playerName}}. Wähle deine Hand</strong>
     <div class="buttons-container">
       {{#each symbolDefinitions}}
-        <div>
-            <button class="game-option {{buttonIcon symbol}}" value="{{symbol}}">{{label}}</button>
-        </div>
+        <button class="game-option {{buttonIcon symbol}}" value="{{symbol}}">{{label}}</button>
       {{/each}}
     </div>
-    <div>
-      VS.
+    <div class="answer">
+      <div>
+        {{#if currentGame}}
+          <div>Nächste Runde startet in {{currentGame.time}}</div>
+        {{else}}
+          VS.
+        {{/if}}
+      </div>
+      <div class="opponents-choice">
+        {{#if currentGame}}
+          {{ currentGame.opponentHandLabel }}
+        {{else}}
+          ?
+        {{/if}}
+      </div>
     </div>
-    <div>
-      {{#if currentGame}}
-        <div>Nächste Runde startet in {{currentGame.time}}</div>
-        {{ currentGame.opponentHand }}
-      {{else}}
-        ?
-      {{/if}}
-    </div>
+
+
     <form onsubmit="stopGame()" name="backForm">
-      <button id="stop-game" type="submit">
+      <button id="stop-game" type="submit" class="big-button">
         Zurück zum Ranking
       </button>
     </form>

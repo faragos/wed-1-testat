@@ -25,11 +25,7 @@ main {
   content: "=";
 }
 
-.buttons-container {
-  display: flex;
-}
-
-.change-mode-button {
+.big-button {
   width: 100%;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -39,22 +35,12 @@ h1 {
   text-align: center;
 }
 
-.ranking {
-  font-weight: bold;
-  align-items: center;
+form {
   display: flex;
+  align-items: center;
   flex-direction: column;
 }
 
-.ranking li {
-  margin-top: 10px;
-}
-
-.player-name {
-  font-weight: normal;
-  text-align: center;
-}
-
-.amount-wins {
-  margin-bottom: 5px;
+button {
+  cursor: pointer;
 }

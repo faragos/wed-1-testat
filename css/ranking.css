@@ -1,0 +1,30 @@
+.ranking {
+  font-weight: bold;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+}
+
+.ranking li {
+  margin-top: 10px;
+}
+
+.player-name {
+  font-weight: normal;
+  text-align: center;
+}
+
+.amount-wins {
+  margin-bottom: 5px;
+}
+
+.start-game-button {
+  margin-top: 15px;
+}
+
+.opponents-choice {
+  padding: 10px 5px;
+  border: 1px solid #000;
+  margin-top: 10px;
+}
