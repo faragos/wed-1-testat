@@ -14,11 +14,17 @@
     <main id="main">
     </main>
   </body>
+<script>
+  rockPaperScissors = {}
+</script>
 <script src="js/handlebarsHelper.js"></script>
-<script src="js/init.js"></script>
-<script src="js/players.js"></script>
+<script src="js/viewHandler.js"></script>
+<script src="js/homeView.js"></script>
+<script src="js/gameView.js"></script>
+<script src="js/controller.js"></script>
+<script src="js/playerHandler.js"></script>
 <script src="js/game.js"></script>
-<script src="js/gameLogic.js"></script>
+<script src="js/gameData.js"></script>
 <script src="js/countdown.js"></script>
 
 <script id="home-template" type="text/x-handlebars-template">
@@ -29,25 +35,32 @@
     {{/ifCond}}
     <h1>Rangliste</h1>
     <div id="player-list-container">
-      <ol class="ranking">
-        {{#each playersSorted}}
-          <li id="item-{{@index}}">
-            <div class="amount-wins">Rang mit {{win}} Siegen</div>
-            <div class="player-name">{{user}}</div>
-          </li>
-        {{/each}}
-      </ol>
+      <div id="ranking-container">
+        <div class="loader"></div>
+      </div>
     </div>
     <hr>
-    <form onsubmit="initGame()" name="playerForm">
+    <form onsubmit="rockPaperScissors.controller.initGame()" name="playerForm">
       <div>
         <label for="name">Name</label>
-        <input type="text" id="name" name="name">
+        <input type="text" id="name" name="name" required value="{{playerName}}">
       </div>
       <button id="start-game" type="submit" class="big-button start-game-button">
         Spiel Starten
       </button>
     </form>
+</script>
+<script id="ranking-template" type="text/x-handlebars-template">
+  <ol class="ranking">
+    {{#each this}}
+      <li id="item-{{@index}}">
+        <span class="amount-wins">Rang mit {{this.[0]}} Siegen</span>
+        {{#each this.[1]}}
+          <div class="player-name">{{user}}</div>
+        {{/each}}
+      </li>
+    {{/each}}
+  </ol>
 </script>
 <script id="game-template" type="text/x-handlebars-template">
     <strong>Hallo {{playerName}}. Wähle deine Hand</strong>
@@ -59,7 +72,7 @@
     <div class="answer">
       <div>
         {{#if currentGame}}
-          <div>Nächste Runde startet in {{currentGame.time}}</div>
+          <div>Nächste Runde startet in {{time}}</div>
         {{else}}
           VS.
         {{/if}}
@@ -74,7 +87,7 @@
     </div>
 
 
-    <form onsubmit="stopGame()" name="backForm">
+    <form onsubmit="rockPaperScissors.controller.stopGame()" name="backForm">
       <button id="stop-game" type="submit" class="big-button">
         Zurück zum Ranking
       </button>

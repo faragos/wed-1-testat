@@ -10,5 +10,6 @@ Handlebars.registerHelper('ternary', function (test, yes, no) {
 })
 
 Handlebars.registerHelper('buttonIcon', function (currentHand) {
-  return rockPaperScissors.currentGame && rockPaperScissors.currentGame.playerHand === currentHand ? `icon-${rockPaperScissors.currentGame.result}` : ''
+  let currGame = rockPaperScissors.controller.getCurrentGame()
+  return currGame && currGame.playerHand === currentHand ? `icon-${currGame.result}` : ''
 })
