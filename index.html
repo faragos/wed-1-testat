@@ -40,7 +40,7 @@
       </div>
     </div>
     <hr>
-    <form onsubmit="rockPaperScissors.controller.initGame()" name="playerForm">
+    <form name="player-form" id="player-form">
       <div>
         <label for="name">Name</label>
         <input type="text" id="name" name="name" required value="{{playerName}}">
@@ -87,11 +87,9 @@
     </div>
 
 
-    <form onsubmit="rockPaperScissors.controller.stopGame()" name="backForm">
-      <button id="stop-game" type="submit" class="big-button">
-        Zurück zum Ranking
-      </button>
-    </form>
+    <button id="stop-game" class="big-button">
+      Zurück zum Ranking
+    </button>
     <hr />
     <table>
       <thead>

@@ -4,6 +4,8 @@ window.rockPaperScissors.gameView = window.rockPaperScissors.gameView || functio
     Array.from(gameButtons).forEach(function (element) {
       element.addEventListener('click', chooseOption)
     })
+
+    document.getElementById('stop-game').addEventListener('click', rockPaperScissors.controller.stopGame)
   }
 
   async function chooseOption (e) {

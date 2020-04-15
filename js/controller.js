@@ -30,7 +30,7 @@ window.rockPaperScissors.controller = (function () {
   }
 
   function initGame () {
-    let potPlayerName = document.forms['playerForm']['name'].value
+    let potPlayerName = document.forms['player-form']['name'].value
     playerName = potPlayerName
     view = 'game'
     if (isLocalGame() && !doesPlayerExist(potPlayerName)) {

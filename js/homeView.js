@@ -24,7 +24,7 @@ window.rockPaperScissors.homeView = (function () {
     loadRanking()
   }
 
-  function addEventListenerToModeButton () {
+  function addEventListenerToButtons () {
     let button
     if (rockPaperScissors.controller.isLocalGame()) {
       button = document.getElementById('server-button')
@@ -32,10 +32,12 @@ window.rockPaperScissors.homeView = (function () {
       button = document.getElementById('local-button')
     }
     button.addEventListener('click', switchMode)
+
+    document.getElementById('player-form').addEventListener('submit', rockPaperScissors.controller.initGame)
   }
 
   return {
     loadRanking,
-    addEventListenerToModeButton
+    addEventListenerToButtons
   }
 })()

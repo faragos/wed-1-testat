@@ -12,7 +12,7 @@ window.rockPaperScissors.viewHandler = (function () {
     const createPlayerFragmentHtmlString = Handlebars.compile(playerFragmentTemplateSource)
     document.getElementById('main').innerHTML = createPlayerFragmentHtmlString(rockPaperScissors.controller.getDataForHandlebars())
 
-    rockPaperScissors.homeView.addEventListenerToModeButton()
+    rockPaperScissors.homeView.addEventListenerToButtons()
   }
 
   function rankingView () {
