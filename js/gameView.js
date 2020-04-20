@@ -1,3 +1,4 @@
+'use strict'
 window.rockPaperScissors.gameView = window.rockPaperScissors.gameView || function () {
   function addEventListenerToButtonOptions () {
     let gameButtons = document.getElementsByClassName('game-option')

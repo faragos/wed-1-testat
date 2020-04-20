@@ -1,3 +1,4 @@
+'use strict'
 window.rockPaperScissors.countdown = window.rockPaperScissors.countdown || function () {
   let timeinterval
   let time = 3

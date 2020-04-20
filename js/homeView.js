@@ -1,3 +1,4 @@
+'use strict'
 window.rockPaperScissors.homeView = (function () {
   async function loadRanking () {
     rockPaperScissors.viewHandler.homeView()

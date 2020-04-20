@@ -1,3 +1,5 @@
+'use strict'
+
 class Game {
   constructor (playerName, playerHand, server = false, opponentHandLabel, result) {
     this.playerName = playerName

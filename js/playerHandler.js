@@ -1,3 +1,4 @@
+'use strict'
 rockPaperScissors.exampleData = {
   'Gino': {'lost': 23, 'user': 'Gino', 'win': 10},
   'Marco': {'lost': 10, 'user': 'Marco', 'win': 1},

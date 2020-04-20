@@ -1,3 +1,4 @@
+'use strict'
 window.rockPaperScissors.viewHandler = (function () {
   function gameView () {
     const gameFragmentTemplateSource = document.getElementById('game-template').innerHTML

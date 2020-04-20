@@ -1,3 +1,4 @@
+'use strict'
 rockPaperScissors.symbolDefinitions = [
   {
     symbol: 'rock',
