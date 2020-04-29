@@ -1,5 +1,5 @@
 'use strict'
-window.rockPaperScissors.gameView = window.rockPaperScissors.gameView || function () {
+window.rockPaperScissors.gameView = window.rockPaperScissors.gameView || (function () {
   function addEventListenerToButtonOptions () {
     let gameButtons = document.getElementsByClassName('game-option')
     Array.from(gameButtons).forEach(function (element) {
@@ -17,12 +17,8 @@ window.rockPaperScissors.gameView = window.rockPaperScissors.gameView || functio
       if (rockPaperScissors.controller.isLocalGame()) {
         game = new Game(playerName, e.target.value)
       } else {
-        let playResponse = await fetch(
-          `https://us-central1-schere-stein-papier-ee0c9.cloudfunctions.net/widgets/play?playerName=${playerName}&playerHand=${e.target.innerText}`)
-        if (playResponse.ok) {
-          let playResponseJson = await playResponse.json()
-          game = new Game(playerName, e.target.value, true, playResponseJson.choice, playResponseJson.win)
-        }
+        let playResponseJson = await rockPaperScissors.gameService.fetchGame(playerName, e.target.innerText)
+        game = new Game(playerName, e.target.value, true, playResponseJson.choice, playResponseJson.win)
       }
       rockPaperScissors.controller.setCurrentGame(game)
       rockPaperScissors.controller.getCurrentMode().history.push(game)
@@ -39,4 +35,4 @@ window.rockPaperScissors.gameView = window.rockPaperScissors.gameView || functio
   return {
     addEventListenerToButtonOptions
   }
-}()
+})()

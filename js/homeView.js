@@ -5,10 +5,7 @@ window.rockPaperScissors.homeView = (function () {
     if (rockPaperScissors.controller.isLocalGame()) {
       rockPaperScissors.players = rockPaperScissors.exampleData
     } else {
-      let playerResponse = await fetch('https://us-central1-schere-stein-papier-ee0c9.cloudfunctions.net/widgets/ranking')
-      if (playerResponse.ok) {
-        rockPaperScissors.players = await playerResponse.json()
-      }
+      rockPaperScissors.players = await rockPaperScissors.gameService.fetchPlayers()
     }
     rockPaperScissors.playerHandler.sortPlayers()
     rockPaperScissors.viewHandler.rankingView()

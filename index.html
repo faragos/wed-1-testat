@@ -24,30 +24,31 @@
     <script src="js/playerHandler.js"></script>
     <script src="js/game.js"></script>
     <script src="js/gameData.js"></script>
+    <script src="js/gameService.js"></script>
     <script src="js/countdown.js"></script>
 
     <script id="home-template" type="text/x-handlebars-template">
-        {{#ifCond mode 'local'}}
-          <button id="server-button" class="change-mode-button big-button">Wechsle zu Server</button>
-        {{else}}
-          <button id="local-button" class="change-mode-button big-button">Wechsle zu Lokal</button>
-        {{/ifCond}}
-        <h1>Rangliste</h1>
-        <div id="player-list-container">
-          <div id="ranking-container">
-            <div class="loader"></div>
-          </div>
+      {{#ifCond mode 'local'}}
+        <button id="server-button" class="change-mode-button big-button">Wechsle zu Server</button>
+      {{else}}
+        <button id="local-button" class="change-mode-button big-button">Wechsle zu Lokal</button>
+      {{/ifCond}}
+      <h1>Rangliste</h1>
+      <div id="player-list-container">
+        <div id="ranking-container">
+          <div class="loader"></div>
         </div>
-        <hr>
-        <form name="player-form" id="player-form">
-          <div>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required value="{{playerName}}">
-          </div>
-          <button id="start-game" type="submit" class="big-button start-game-button">
-            Spiel Starten
-          </button>
-        </form>
+      </div>
+      <hr>
+      <form name="player-form" id="player-form">
+        <div>
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required value="{{playerName}}">
+        </div>
+        <button id="start-game" type="submit" class="big-button start-game-button">
+          Spiel Starten
+        </button>
+      </form>
     </script>
     <script id="ranking-template" type="text/x-handlebars-template">
       <ol class="ranking">
@@ -62,53 +63,51 @@
       </ol>
     </script>
     <script id="game-template" type="text/x-handlebars-template">
-        <strong>Hallo {{playerName}}. Wähle deine Hand</strong>
-        <div class="buttons-container">
-          {{#each symbolDefinitions}}
-            <button class="game-option {{buttonIcon symbol}}" value="{{symbol}}">{{label}}</button>
-          {{/each}}
+      <strong>Hallo {{playerName}}. Wähle deine Hand</strong>
+      <div class="buttons-container">
+        {{#each symbolDefinitions}}
+          <button class="game-option {{buttonIcon symbol}}" value="{{symbol}}">{{label}}</button>
+        {{/each}}
+      </div>
+      <div class="answer">
+        <div>
+          {{#if currentGame}}
+            <div>Nächste Runde startet in {{time}}</div>
+          {{else}}
+            VS.
+          {{/if}}
         </div>
-        <div class="answer">
-          <div>
-            {{#if currentGame}}
-              <div>Nächste Runde startet in {{time}}</div>
-            {{else}}
-              VS.
-            {{/if}}
-          </div>
-          <div class="opponents-choice">
-            {{#if currentGame}}
-              {{ currentGame.opponentHandLabel }}
-            {{else}}
-              ?
-            {{/if}}
-          </div>
+        <div class="opponents-choice">
+          {{#if currentGame}}
+            {{ currentGame.opponentHandLabel }}
+          {{else}}
+            ?
+          {{/if}}
         </div>
-
-
-        <button id="stop-game" class="big-button">
-          Zurück zum Ranking
-        </button>
-        <hr />
-        <table>
-          <thead>
-            <tr>
-              <td>Result</td>
-              <td>Player</td>
-              <td>Opponent</td>
-            </tr>
-          </thead>
-          <tbody>
-          {{#each history}}
-            <tr id="item-{{@index}}">
-              <td class="icon-{{result}}">
-              </td>
-              <td>{{playerHandLabel}}</td>
-              <td>{{opponentHandLabel}}</td>
-            </tr>
-          {{/each}}
-          </tbody>
-        </table>
+      </div>
+      <button id="stop-game" class="big-button">
+        Zurück zum Ranking
+      </button>
+      <hr />
+      <table>
+        <thead>
+          <tr>
+            <td>Result</td>
+            <td>Player</td>
+            <td>Opponent</td>
+          </tr>
+        </thead>
+        <tbody>
+        {{#each history}}
+          <tr id="item-{{@index}}">
+            <td class="icon-{{result}}">
+            </td>
+            <td>{{playerHandLabel}}</td>
+            <td>{{opponentHandLabel}}</td>
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
     </script>
   </body>
 </html>
