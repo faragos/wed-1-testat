@@ -1,4 +1,6 @@
 'use strict'
+import { controller } from './controller.js'
+
 Handlebars.registerHelper('ifCond', function (v1, v2, options) {
   if (v1 === v2) {
     return options.fn(this)
@@ -11,6 +13,6 @@ Handlebars.registerHelper('ternary', function (test, yes, no) {
 })
 
 Handlebars.registerHelper('buttonIcon', function (currentHand) {
-  let currGame = rockPaperScissors.controller.getCurrentGame()
+  let currGame = controller.getCurrentGame()
   return currGame && currGame.playerHand === currentHand ? `icon-${currGame.result}` : ''
 })

@@ -1,38 +1,34 @@
 'use strict'
-rockPaperScissors.exampleData = {
+export let exampleData = {
   'Gino': {'lost': 23, 'user': 'Gino', 'win': 10},
   'Marco': {'lost': 10, 'user': 'Marco', 'win': 1},
   'Armend': {'lost': 5, 'user': 'Armend', 'win': 4},
   'Christian': {'lost': 5, 'user': 'Christian', 'win': 4}
 }
 
-rockPaperScissors.players = rockPaperScissors.exampleData
+export let players = sortPlayers(exampleData)
 
-rockPaperScissors.playerHandler = (function () {
-  function comparePlayers (s1, s2) {
-    return s2[1][0].win - s1[1][0].win
-  }
+function comparePlayers (s1, s2) {
+  return s2[1][0].win - s1[1][0].win
+}
 
-  function playersSorted () {
-    let result = Object.values(rockPaperScissors.players)
-    return Object.entries(groupBy([...result], 'win')).sort(comparePlayers)
-  }
+function sortPlayers (localPlayers = exampleData) {
+  let result = Object.values(localPlayers)
+  return Object.entries(groupBy([...result], 'win')).sort(comparePlayers)
+}
 
-  function groupBy (xs, key) {
-    return xs.reduce(function (rv, x) {
-      (rv[x[key]] = rv[x[key]] || []).push(x)
-      return rv
-    }, {})
-  }
+function setPlayers (localPlayers) {
+  players = localPlayers
+}
 
-  function sortPlayers () {
-    rockPaperScissors.playersSorted = playersSorted()
-  }
+function groupBy (xs, key) {
+  return xs.reduce(function (rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x)
+    return rv
+  }, {})
+}
 
-  return {
-    sortPlayers
-  }
-})()
-
-rockPaperScissors.playerHandler.sortPlayers()
-
+export const playerHandler = {
+  sortPlayers,
+  setPlayers
+}

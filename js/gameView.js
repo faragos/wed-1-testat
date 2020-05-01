@@ -1,38 +1,43 @@
 'use strict'
-window.rockPaperScissors.gameView = window.rockPaperScissors.gameView || (function () {
-  function addEventListenerToButtonOptions () {
-    let gameButtons = document.getElementsByClassName('game-option')
-    Array.from(gameButtons).forEach(function (element) {
-      element.addEventListener('click', chooseOption)
-    })
+import { controller } from './controller.js'
+import { gameService } from './gameService.js'
+import { viewHandler } from './viewHandler.js'
+import { countdown } from './countdown.js'
+import { Game } from './game.js'
+import { exampleData } from './playerHandler.js'
 
-    document.getElementById('stop-game').addEventListener('click', rockPaperScissors.controller.stopGame)
-  }
+function addEventListenerToButtonOptions () {
+  let gameButtons = document.getElementsByClassName('game-option')
+  Array.from(gameButtons).forEach(function (element) {
+    element.addEventListener('click', chooseOption)
+  })
 
-  async function chooseOption (e) {
-    if (!rockPaperScissors.controller.isChosen()) {
-      rockPaperScissors.controller.setChosen(true)
-      let playerName = rockPaperScissors.controller.getPlayerName()
-      let game
-      if (rockPaperScissors.controller.isLocalGame()) {
-        game = new Game(playerName, e.target.value)
-      } else {
-        let playResponseJson = await rockPaperScissors.gameService.fetchGame(playerName, e.target.innerText)
-        game = new Game(playerName, e.target.value, true, playResponseJson.choice, playResponseJson.win)
-      }
-      rockPaperScissors.controller.setCurrentGame(game)
-      rockPaperScissors.controller.getCurrentMode().history.push(game)
-      if (rockPaperScissors.controller.isLocalGame()) {
-        if (game.result !== 'tie') {
-          rockPaperScissors.exampleData[playerName][game.result]++
-        }
-      }
-      rockPaperScissors.viewHandler.gameView()
-      rockPaperScissors.countdown.startTimer(3, e.target)
+  document.getElementById('stop-game').addEventListener('click', controller.stopGame)
+}
+
+async function chooseOption (e) {
+  if (!controller.isChosen()) {
+    controller.setChosen(true)
+    let playerName = controller.getPlayerName()
+    let game
+    if (controller.isLocalGame()) {
+      game = new Game(playerName, e.target.value)
+    } else {
+      let playResponseJson = await gameService.fetchGame(playerName, e.target.innerText)
+      game = new Game(playerName, e.target.value, true, playResponseJson.choice, playResponseJson.win)
     }
+    controller.setCurrentGame(game)
+    controller.getCurrentMode().history.push(game)
+    if (controller.isLocalGame()) {
+      if (game.result !== 'tie') {
+        exampleData[playerName][game.result]++
+      }
+    }
+    viewHandler.gameViewInit()
+    countdown.startTimer(3, e.target)
   }
+}
 
-  return {
-    addEventListenerToButtonOptions
-  }
-})()
+export const gameView = {
+  addEventListenerToButtonOptions
+}

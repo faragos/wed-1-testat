@@ -1,32 +1,33 @@
 'use strict'
-window.rockPaperScissors.countdown = window.rockPaperScissors.countdown || function () {
-  let timeinterval
-  let time = 3
+import { controller } from './controller.js'
+import { viewHandler } from './viewHandler.js'
 
-  function startTimer (seconds) {
-    let timer = seconds
-    timeinterval = setInterval(function () {
-      time = timer - 1
-      if (--timer < 0) {
-        clearTimer()
-      }
-      rockPaperScissors.viewHandler.gameView()
-    }, 1000)
-  }
+let timeinterval
+let time = 3
 
-  function clearTimer () {
-    clearInterval(timeinterval)
-    time = 3
-    rockPaperScissors.controller.resetOption()
-  }
+function startTimer (seconds) {
+  let timer = seconds
+  timeinterval = setInterval(function () {
+    time = timer - 1
+    if (--timer < 0) {
+      clearTimer()
+    }
+    viewHandler.gameViewInit()
+  }, 1000)
+}
 
-  function getCurrentTime () {
-    return time
-  }
+function clearTimer () {
+  clearInterval(timeinterval)
+  time = 3
+  controller.resetOption()
+}
 
-  return {
-    startTimer,
-    clearTimer,
-    getCurrentTime
-  }
-}()
+function getCurrentTime () {
+  return time
+}
+
+export const countdown = {
+  startTimer,
+  clearTimer,
+  getCurrentTime
+}

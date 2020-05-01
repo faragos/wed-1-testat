@@ -1,31 +1,33 @@
 'use strict'
-window.rockPaperScissors.viewHandler = (function () {
-  function gameView () {
-    const gameFragmentTemplateSource = document.getElementById('game-template').innerHTML
-    const gameFragmentHtmlString = Handlebars.compile(gameFragmentTemplateSource)
-    document.getElementById('main').innerHTML = gameFragmentHtmlString(rockPaperScissors.controller.getDataForHandlebars())
+import { controller } from './controller.js'
+import { homeView } from './homeView.js'
+import { gameView } from './gameView.js'
+import { players } from './playerHandler.js'
 
-    rockPaperScissors.gameView.addEventListenerToButtonOptions()
-  }
+function gameViewInit () {
+  const gameFragmentTemplateSource = document.getElementById('game-template').innerHTML
+  const gameFragmentHtmlString = Handlebars.compile(gameFragmentTemplateSource)
+  document.getElementById('main').innerHTML = gameFragmentHtmlString(controller.getDataForHandlebars())
 
-  function homeView () {
-    const playerFragmentTemplateSource = document.getElementById('home-template').innerHTML
-    const createPlayerFragmentHtmlString = Handlebars.compile(playerFragmentTemplateSource)
-    document.getElementById('main').innerHTML = createPlayerFragmentHtmlString(rockPaperScissors.controller.getDataForHandlebars())
+  gameView.addEventListenerToButtonOptions()
+}
 
-    rockPaperScissors.homeView.addEventListenerToButtons()
-  }
+function homeViewInit () {
+  const playerFragmentTemplateSource = document.getElementById('home-template').innerHTML
+  const createPlayerFragmentHtmlString = Handlebars.compile(playerFragmentTemplateSource)
+  document.getElementById('main').innerHTML = createPlayerFragmentHtmlString(controller.getDataForHandlebars())
 
-  function rankingView () {
-    const rankingFragmentTemplateSource = document.getElementById('ranking-template').innerHTML
-    const createRankingFragmentHtmlString = Handlebars.compile(rankingFragmentTemplateSource)
-    document.getElementById('ranking-container').innerHTML = createRankingFragmentHtmlString(rockPaperScissors.playersSorted)
-  }
+  homeView.addEventListenerToButtons()
+}
 
-  return {
-    gameView,
-    homeView,
-    rankingView
-  }
+function rankingView () {
+  const rankingFragmentTemplateSource = document.getElementById('ranking-template').innerHTML
+  const createRankingFragmentHtmlString = Handlebars.compile(rankingFragmentTemplateSource)
+  document.getElementById('ranking-container').innerHTML = createRankingFragmentHtmlString(players)
+}
 
-})()
+export const viewHandler = {
+  gameViewInit,
+  homeViewInit,
+  rankingView
+}

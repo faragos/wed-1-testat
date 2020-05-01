@@ -1,21 +1,21 @@
-window.rockPaperScissors.gameService = window.rockPaperScissors.gameService || (function () {
-  async function fetchPlayers () {
-    let playerResponse = await fetch('https://us-central1-schere-stein-papier-ee0c9.cloudfunctions.net/widgets/ranking')
-    if (playerResponse.ok) {
-      return playerResponse.json()
-    }
-  }
+'use strict'
 
-  async function fetchGame (playerName, playerHand) {
-    let playResponse = await fetch(
-      `https://us-central1-schere-stein-papier-ee0c9.cloudfunctions.net/widgets/play?playerName=${playerName}&playerHand=${playerHand}`)
-    if (playResponse.ok) {
-      return playResponse.json()
-    }
+async function fetchPlayers () {
+  let playerResponse = await fetch('https://us-central1-schere-stein-papier-ee0c9.cloudfunctions.net/widgets/ranking')
+  if (playerResponse.ok) {
+    return playerResponse.json()
   }
+}
 
-  return {
-    fetchPlayers,
-    fetchGame
+async function fetchGame (playerName, playerHand) {
+  let playResponse = await fetch(
+    `https://us-central1-schere-stein-papier-ee0c9.cloudfunctions.net/widgets/play?playerName=${playerName}&playerHand=${playerHand}`)
+  if (playResponse.ok) {
+    return playResponse.json()
   }
-})()
+}
+
+export const gameService = {
+  fetchPlayers,
+  fetchGame
+}

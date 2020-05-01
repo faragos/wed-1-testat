@@ -1,13 +1,15 @@
 'use strict'
 
-class Game {
+import { gameData, symbolDefinitions } from './gameData.js'
+
+export class Game {
   constructor (playerName, playerHand, server = false, opponentHandLabel, result) {
     this.playerName = playerName
     this.playerHand = playerHand
-    this.playerHandLabel = rockPaperScissors.gameData.findLabel(this.playerHand)
+    this.playerHandLabel = gameData.findLabel(this.playerHand)
     this.time = 3
     if (server) {
-      this.opponentHand = rockPaperScissors.gameData.findKey(opponentHandLabel)
+      this.opponentHand = gameData.findKey(opponentHandLabel)
       this.opponentHandLabel = opponentHandLabel
       if (result) {
         this.result = 'win'
@@ -17,9 +19,9 @@ class Game {
         this.result = 'tie'
       }
     } else {
-      this.opponentHand = rockPaperScissors.symbolDefinitions[Math.floor(Math.random() * 5)].symbol
-      this.opponentHandLabel = rockPaperScissors.gameData.findLabel(this.opponentHand)
-      this.result = rockPaperScissors.gameData.getResult(this.playerHand, this.opponentHand)
+      this.opponentHand = symbolDefinitions[Math.floor(Math.random() * 5)].symbol
+      this.opponentHandLabel = gameData.findLabel(this.opponentHand)
+      this.result = gameData.getResult(this.playerHand, this.opponentHand)
     }
   }
 }

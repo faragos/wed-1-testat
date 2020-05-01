@@ -1,41 +1,43 @@
 'use strict'
-window.rockPaperScissors.homeView = (function () {
-  async function loadRanking () {
-    rockPaperScissors.viewHandler.homeView()
-    if (rockPaperScissors.controller.isLocalGame()) {
-      rockPaperScissors.players = rockPaperScissors.exampleData
-    } else {
-      rockPaperScissors.players = await rockPaperScissors.gameService.fetchPlayers()
-    }
-    rockPaperScissors.playerHandler.sortPlayers()
-    rockPaperScissors.viewHandler.rankingView()
-  }
+import { controller } from './controller.js'
+import { gameService } from './gameService.js'
+import { viewHandler } from './viewHandler.js'
+import { playerHandler } from './playerHandler.js'
 
-  function switchMode (e) {
-    let mode
-    if (rockPaperScissors.controller.isLocalGame()) {
-      mode = 'server'
-    } else {
-      mode = 'local'
-    }
-    rockPaperScissors.controller.setMode(mode)
-    loadRanking()
+async function loadRanking () {
+  viewHandler.homeViewInit()
+  if (controller.isLocalGame()) {
+    playerHandler.setPlayers(playerHandler.sortPlayers())
+  } else {
+    playerHandler.setPlayers(playerHandler.sortPlayers(await gameService.fetchPlayers()))
   }
+  viewHandler.rankingView()
+}
 
-  function addEventListenerToButtons () {
-    let button
-    if (rockPaperScissors.controller.isLocalGame()) {
-      button = document.getElementById('server-button')
-    } else {
-      button = document.getElementById('local-button')
-    }
-    button.addEventListener('click', switchMode)
-
-    document.getElementById('player-form').addEventListener('submit', rockPaperScissors.controller.initGame)
+function switchMode (e) {
+  let mode
+  if (controller.isLocalGame()) {
+    mode = 'server'
+  } else {
+    mode = 'local'
   }
+  controller.setMode(mode)
+  loadRanking()
+}
 
-  return {
-    loadRanking,
-    addEventListenerToButtons
+function addEventListenerToButtons () {
+  let button
+  if (controller.isLocalGame()) {
+    button = document.getElementById('server-button')
+  } else {
+    button = document.getElementById('local-button')
   }
-})()
+  button.addEventListener('click', switchMode)
+
+  document.getElementById('player-form').addEventListener('submit', controller.initGame)
+}
+
+export const homeView = {
+  loadRanking,
+  addEventListenerToButtons
+}
