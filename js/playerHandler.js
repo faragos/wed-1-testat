@@ -14,7 +14,7 @@ function comparePlayers (s1, s2) {
 
 function sortPlayers (localPlayers = exampleData) {
   let result = Object.values(localPlayers)
-  return Object.entries(groupBy([...result], 'win')).sort(comparePlayers)
+  return Object.entries(groupBy([...result], 'win')).sort(comparePlayers).slice(0, 10)
 }
 
 function setPlayers (localPlayers) {
