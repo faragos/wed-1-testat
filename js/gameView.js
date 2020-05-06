@@ -3,7 +3,6 @@ import { controller } from './controller.js'
 import { gameService } from './gameService.js'
 import { viewHandler } from './viewHandler.js'
 import { countdown } from './countdown.js'
-import { Game } from './game.js'
 import { exampleData } from './playerHandler.js'
 
 function addEventListenerToButtonOptions () {
@@ -19,13 +18,7 @@ async function chooseOption (e) {
   if (!controller.isChosen()) {
     controller.setChosen(true)
     let playerName = controller.getPlayerName()
-    let game
-    if (controller.isLocalGame()) {
-      game = new Game(playerName, e.target.value)
-    } else {
-      let playResponseJson = await gameService.fetchGame(playerName, e.target.innerText)
-      game = new Game(playerName, e.target.value, true, playResponseJson.choice, playResponseJson.win)
-    }
+    let game = await gameService.fetchGame(playerName, e.target.value, e.target.innerText)
     controller.setCurrentGame(game)
     controller.getCurrentMode().history.push(game)
     if (controller.isLocalGame()) {

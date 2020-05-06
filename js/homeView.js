@@ -6,11 +6,7 @@ import { playerHandler } from './playerHandler.js'
 
 async function loadRanking () {
   viewHandler.homeViewInit()
-  if (controller.isLocalGame()) {
-    playerHandler.setPlayers(playerHandler.sortPlayers())
-  } else {
-    playerHandler.setPlayers(playerHandler.sortPlayers(await gameService.fetchPlayers()))
-  }
+  playerHandler.setPlayers(playerHandler.sortPlayers(await gameService.fetchPlayers()))
   viewHandler.rankingView()
 }
 
@@ -27,11 +23,7 @@ function switchMode (e) {
 
 function addEventListenerToButtons () {
   let button
-  if (controller.isLocalGame()) {
-    button = document.getElementById('server-button')
-  } else {
-    button = document.getElementById('local-button')
-  }
+  button = document.getElementById(controller.getInvertedModeLabel() + '-button')
   button.addEventListener('click', switchMode)
 
   document.getElementById('player-form').addEventListener('submit', controller.initGame)

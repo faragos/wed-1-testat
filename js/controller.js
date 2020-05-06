@@ -57,6 +57,10 @@ function getCurrentMode () {
   return isLocalGame() ? local : server
 }
 
+function getInvertedModeLabel () {
+  return isLocalGame() ? 'server' : 'local'
+}
+
 function setMode (newMode) {
   mode = newMode
 }
@@ -98,5 +102,6 @@ export const controller = {
   isLocalGame,
   setMode,
   getCurrentMode,
+  getInvertedModeLabel,
   getPlayerName
 }
