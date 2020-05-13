@@ -11,12 +11,7 @@ async function loadRanking () {
 }
 
 function switchMode (e) {
-  let mode
-  if (controller.isLocalGame()) {
-    mode = 'server'
-  } else {
-    mode = 'local'
-  }
+  let mode = controller.getInvertedModeLabel()
   controller.setMode(mode)
   loadRanking()
 }
