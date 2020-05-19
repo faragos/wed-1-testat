@@ -16,15 +16,7 @@ function switchMode (e) {
   loadRanking()
 }
 
-function addEventListenerToButtons () {
-  let button
-  button = document.getElementById(controller.getInvertedModeLabel() + '-button')
-  button.addEventListener('click', switchMode)
-
-  document.getElementById('player-form').addEventListener('submit', controller.initGame)
-}
-
 export const homeView = {
   loadRanking,
-  addEventListenerToButtons
+  switchMode,
 }

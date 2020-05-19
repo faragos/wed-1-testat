@@ -19,6 +19,9 @@ async function fetchGame (playerName, playerHand, playerHandLabel) {
   let game
   if (controller.isLocalGame()) {
     game = new Game(playerName, playerHand)
+    if (game.result !== 'tie') {
+      exampleData[playerName][game.result]++
+    }
   } else {
     let playResponse = await fetch(
       `https://us-central1-schere-stein-papier-ee0c9.cloudfunctions.net/widgets/play?playerName=${playerName}&playerHand=${playerHandLabel}`)
