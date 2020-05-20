@@ -15,13 +15,21 @@ async function fetchPlayers () {
   }
 }
 
+function doesPlayerExist (playerName) {
+  return !!exampleData[playerName]
+}
+
 async function fetchGame (playerName, playerHand, playerHandLabel) {
   let game
   if (controller.isLocalGame()) {
     game = new Game(playerName, playerHand)
+    if (!doesPlayerExist(playerName)) {
+      exampleData[playerName] = {win: 0, lost: 0, user: playerName}
+    }
     if (game.result !== 'tie') {
       exampleData[playerName][game.result]++
     }
+    controller.addToLocalHistory(game)
   } else {
     let playResponse = await fetch(
       `https://us-central1-schere-stein-papier-ee0c9.cloudfunctions.net/widgets/play?playerName=${playerName}&playerHand=${playerHandLabel}`)
@@ -29,6 +37,7 @@ async function fetchGame (playerName, playerHand, playerHandLabel) {
       let playResponseJson = await playResponse.json()
       game = new Game(playerName, playerHand, true, playResponseJson.choice, playResponseJson.win)
     }
+    controller.addToServerHistory(game)
   }
   return game
 }

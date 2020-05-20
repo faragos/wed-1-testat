@@ -10,7 +10,6 @@ async function chooseOption (e) {
     let playerName = controller.getPlayerName()
     let game = await gameService.fetchGame(playerName, e.target.value, e.target.innerText)
     controller.setCurrentGame(game)
-    controller.getCurrentMode().history.push(game)
     viewHandler.gameViewInit()
     countdown.startTimer(3, e.target)
   }

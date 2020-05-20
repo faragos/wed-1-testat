@@ -4,7 +4,6 @@ import { countdown } from './countdown.js'
 import { viewHandler } from './viewHandler.js'
 import { homeView } from './homeView.js'
 import { symbolDefinitions } from './gameData.js'
-import { exampleData } from './playerHandler.js'
 
 let server = {
   history: []
@@ -12,7 +11,6 @@ let server = {
 let local = {
   history: []
 }
-let view = 'board'
 let mode = 'local'
 let playerName = ''
 let currentGame
@@ -30,21 +28,12 @@ function getDataForHandlebars () {
 }
 
 function initGame () {
-  let potPlayerName = document.forms['player-form']['name'].value
-  playerName = potPlayerName
-  view = 'game'
-  if (isLocalGame() && !doesPlayerExist(potPlayerName)) {
-    exampleData[potPlayerName] = {win: 0, lost: 0, user: potPlayerName}
-  }
+  playerName = document.forms['player-form']['name'].value
   viewHandler.gameViewInit()
 }
 
 function isLocalGame () {
   return mode === 'local'
-}
-
-function doesPlayerExist (playerName) {
-  return !!exampleData[playerName]
 }
 
 function stopGame () {
@@ -90,18 +79,27 @@ function getPlayerName () {
   return playerName
 }
 
+function addToLocalHistory (game) {
+  return local.history.push(game)
+}
+
+function addToServerHistory (game) {
+  return server.history.push(game)
+}
+
 export const controller = {
   initGame,
   stopGame,
   getDataForHandlebars,
+  isLocalGame,
   getCurrentGame,
   setCurrentGame,
   resetOption,
   isChosen,
   setChosen,
-  isLocalGame,
   setMode,
-  getCurrentMode,
+  addToLocalHistory,
+  addToServerHistory,
   getInvertedModeLabel,
   getPlayerName
 }

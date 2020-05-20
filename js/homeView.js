@@ -10,7 +10,7 @@ async function loadRanking () {
   viewHandler.rankingView()
 }
 
-function switchMode (e) {
+function switchMode () {
   let mode = controller.getInvertedModeLabel()
   controller.setMode(mode)
   loadRanking()
