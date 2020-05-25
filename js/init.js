@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   })
 
   document.addEventListener('submit', function (e) {
+    e.preventDefault()
     let targetElement = e.target
     let playerForm = '#player-form'
     if (targetElement.matches(playerForm)) {
